@@ -1,0 +1,61 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-light-gray);
+  font-family: "Montserrat", sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-base);
+  line-height: 1.15;
+  color: var(--color-dark-gray);
+  /* position: relative; */
+  z-index: 0;
+}
+/* 
+body::before {
+  content: "";
+  position: fixed;
+  top: -25rem;
+  right: -5rem;
+  width: 800px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 236, 252, 0.6) 0%,
+    rgba(255, 250, 220, 0.3) 70%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+} */
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+

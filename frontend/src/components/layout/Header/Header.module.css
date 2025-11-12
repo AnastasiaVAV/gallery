@@ -1,0 +1,35 @@
+.header {
+  min-height: var(--header-height);
+  display: flex;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 20px;
+}
+
+.menuList {
+  display: flex;
+  column-gap: 60px;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-header-menu);
+}
+
+.menuLink.active {
+  text-decoration: underline solid var(--color-yellow);
+  text-decoration-thickness: 3px;
+}
+
+.menuLink:not(.active):hover {
+  text-decoration: underline solid var(--color-light-purple);
+  text-decoration-thickness: 3px;
+ }

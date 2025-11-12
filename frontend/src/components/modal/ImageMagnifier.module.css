@@ -1,0 +1,25 @@
+.magnifierContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: crosshair;
+}
+
+.magnifier {
+  position: fixed;
+  border: 2px solid var(--color-light);
+  border-radius: var(--border-radius-m);
+  box-shadow: var(--box-shadow);
+  pointer-events: none;
+  z-index: 1000;
+  background-repeat: no-repeat;
+}

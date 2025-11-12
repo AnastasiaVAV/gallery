@@ -1,0 +1,27 @@
+.zoomButton {
+  background-color: var(--color-light);
+  border-radius: var(--border-radius-m);
+  height: 55px;
+  aspect-ratio: 1;
+  padding: 5px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  fill: var(--color-dark-gray);
+  transition-duration: var(--transition-duration);
+}
+
+.zoomButton:hover {
+  transform: scale(1.1);
+  box-shadow: var(--box-shadow-downward);
+}
+
+.zoomButton:active .icon {
+  transform: scale(0.95);
+}
+
+.zoomLevel {
+  font-size: var(--font-size-sm);
+}

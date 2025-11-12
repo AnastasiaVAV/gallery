@@ -1,0 +1,213 @@
+.gallery {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - (var(--header-height) * 2));
+}
+
+.titleContainer {
+  max-height: 50%;
+  margin-block: auto;
+  display: block;
+  padding-top: 5%;
+}
+
+.title {
+  font-size: clamp(100px, 15vw, 200px);
+  color: var(--color-dark);
+  position: relative;
+  z-index: 1;
+  text-wrap: wrap;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  left: -0.3em;
+  display: block;
+  background-color: var(--color-yellow);
+  width: 150px;
+  height: 12px;
+}
+
+.title::after {
+  content: attr(data-title);
+  position: absolute;
+  z-index: -1;
+  color: #212321;
+  top: 0.2em;
+  left: 0.2em;
+  color: transparent;
+  -webkit-text-stroke: 2px  var(--color-light);
+}
+
+.slider {
+  display: flex;
+  column-gap: 20px;
+  width: max-content;
+  height: 50%;
+  animation: scrollHorizontal 200s linear infinite;
+}
+
+.slider:hover {
+  animation-play-state: paused;
+}
+
+.sliderBlock {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, calc(50% - 10px));
+  gap: 20px;
+  max-width: 1300px;
+  margin-inline: auto;
+  white-space: nowrap;
+}
+
+.sliderBlock.block1 {
+  grid-template-areas: 
+    "area1 area2 area3 area4 area4"
+    "area1 area5 area6 area6 area7";
+}
+
+.sliderBlock.block2 {
+  grid-template-areas: 
+    "area1 area2 area2 area3 area4"
+    "area1 area5 area6 area6 area7";
+}
+
+.sliderBlock.block3 {
+  grid-template-areas: 
+    "area1 area2 area3 area4 area7"
+    "area1 area5 area5 area6 area7";
+}
+
+/* Анимация */
+@keyframes scrollHorizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+[grid-area="1"] {
+  grid-area: area1;
+}
+[grid-area="2"] {
+  grid-area: area2;
+}
+[grid-area="3"] {
+  grid-area: area3;
+}
+[grid-area="4"] {
+  grid-area: area4;
+}
+[grid-area="5"] {
+  grid-area: area5;
+}
+[grid-area="6"] {
+  grid-area: area6;
+}
+[grid-area="7"] {
+  grid-area: area7;
+}
+[grid-area="8"] {
+  grid-area: area8;
+}
+
+.sliderBlockImage,
+.sliderBlockDiv {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: var(--color-light);
+}
+
+.sliderBlockDiv {
+  border-radius: var(--border-radius-m);
+  animation-duration: 10s;
+  animation-delay: -2s;
+}
+
+.bgLight { 
+  background: var(--color-light); 
+}
+
+.bgDarkGray { 
+  background: var(--color-dark-gray); 
+}
+
+.bgLightBlue { 
+  background: var(--color-light-blue); 
+}
+.bgDarkBlue { 
+  background: var(--color-dark-blue); 
+}
+
+.bgLightPurple { 
+  background: var(--color-light-purple); 
+}
+
+.bgDarkPurple { 
+  background: var(--color-dark-purple); 
+}
+
+.alternate {
+  animation-direction: alternate;
+}
+
+.alternateReverse {
+  animation-direction: alternate-reverse;
+}
+
+.toX {
+  animation-name: toX;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+.toY {
+  animation-name: toY;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+.toYX {
+  animation-name: toYX;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes toX {
+  from {
+    width: 30%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes toY {
+  from {
+    height: 30%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes toYX {
+  from {
+    height: 30%;
+    width: 30%;
+  }
+  40% {
+    height: 100%;
+    width: 30%;
+  }
+  to {
+    height: 100%;
+    width: 100%;
+  }
+}

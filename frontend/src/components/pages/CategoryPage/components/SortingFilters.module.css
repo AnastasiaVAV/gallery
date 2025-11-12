@@ -1,0 +1,6 @@
+.button {
+  flex-direction: row-reverse;
+  column-gap: 10px;
+  white-space: nowrap;
+  position: relative;
+}

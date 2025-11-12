@@ -1,0 +1,73 @@
+import { Button } from '@ui'
+import styles from './ZoomButtons.module.css'
+
+const ZoomIcon = ({ isZoomed }) => (
+  <svg
+    className={styles.icon}
+    fill="currentColor"
+    width="50px"
+    height="50px"
+    viewBox="0 0 32 32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M31,29.5859l-4.6885-4.6884a8.028,8.028,0,1,0-1.414,1.414L29.5859,31ZM20,26a6,6,0,1,1,6-6A6.0066,6.0066,0,0,1,20,26Z" />
+    <path d="M4,8H2V4A2.0021,2.0021,0,0,1,4,2H8V4H4Z" />
+    <path d="M26,8H24V4H20V2h4a2.0021,2.0021,0,0,1,2,2Z" />
+    <rect x="12" y="2" width="4" height="2" />
+    <path d="M8,26H4a2.0021,2.0021,0,0,1-2-2V20H4v4H8Z" />
+    <rect x="2" y="12" width="2" height="4" />
+
+    {isZoomed
+      ? (
+          <polygon points="24 19 21 19 21 16 19 16 19 19 16 19 16 21 19 21 19 24 21 24 21 21 24 21 24 19" />
+        )
+      : (
+          <rect x="16" y="19" width="8" height="2" />
+        )}
+  </svg>
+)
+
+const maxZoom = 8
+const minZoom = 1.5
+const zoomStep = 0.5
+
+const ZoomButtons = ({ zoomLevel, setZoomLevel }) => {
+  const handleZoomLevel = (scaling) => {
+    switch (scaling) {
+      case ('increase'): {
+        zoomLevel <= maxZoom && setZoomLevel(prev => prev + zoomStep)
+        break
+      }
+      case ('decrease'): {
+        zoomLevel > minZoom && setZoomLevel(prev => prev - zoomStep)
+        break
+      }
+      default:
+        break
+    }
+  }
+
+  return (
+    <>
+      <Button
+        variant="secondary"
+        className={`button ${styles.zoomButton}`}
+        onClick={() => handleZoomLevel('increase')}
+        disabled={zoomLevel === maxZoom}
+      >
+        <ZoomIcon isZoomed={true} className={styles.icon} />
+      </Button>
+      <span className={styles.zoomLevel}>{`${zoomLevel}x`}</span>
+      <Button
+        variant="secondary"
+        className={`button ${styles.zoomButton}`}
+        onClick={() => handleZoomLevel('decrease')}
+        disabled={zoomLevel === minZoom}
+      >
+        <ZoomIcon isZoomed={false} className={styles.icon} />
+      </Button>
+    </>
+  )
+}
+
+export default ZoomButtons

@@ -1,0 +1,43 @@
+.likeButtonContainer {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.likesCount {
+  font-weight: var(--font-weight-semibold);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  padding: 0;
+}
+
+.button:disabled {
+  fill: var(--color-dark);
+}
+
+.icon {
+  transition: fill 0.3s ease, stroke 0.3s ease;
+  fill: var(--color-light-blue);
+  width: 60%;
+  height: auto;
+}
+
+.icon:hover {
+  fill: var(--color-light-purple);
+  transition-duration: var(--transition-duration);
+}
+
+.icon:active {
+  fill: var(--color-dark-purple);
+}
+
+.active .icon {
+  fill: var(--color-yellow);
+}
