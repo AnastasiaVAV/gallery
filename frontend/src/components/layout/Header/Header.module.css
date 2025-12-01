@@ -10,6 +10,11 @@
   padding-inline: 20px;
 }
 
+.logo {
+  width: 50px;
+  aspect-ratio: 1 / 1;
+}
+
 .menuList {
   display: flex;
   column-gap: 60px;
@@ -32,4 +37,31 @@
 .menuLink:not(.active):hover {
   text-decoration: underline solid var(--color-light-purple);
   text-decoration-thickness: 3px;
- }
+}
+
+@media(max-width: 767px) {
+  .menuList {
+    column-gap: 30px;
+  }
+}
+
+@media(max-width: 479px) {
+  .content {
+    padding-inline: 0;
+  }
+  .menuList {
+    column-gap: 20px;
+  }
+  .logo {
+    width: 35px;
+  }
+}
+
+@media(max-width: 359px) {
+  .menuList {
+    column-gap: 15px;
+  }
+  .menuLink {
+    font-size: var(--font-size-xxs);
+  }
+}

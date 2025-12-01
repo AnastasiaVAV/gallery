@@ -9,33 +9,4 @@ export const useModalState = () => {
   return context
 }
 
-// import { useState } from 'react'
-
-// const useModalState = () => {
-//   const [isOpenModal, SetIsOpenModal] = useState(false)
-
-//   const openModal = () => {
-//     SetIsOpenModal(true)
-//   }
-
-//   const closeModal = () => {
-//     SetIsOpenModal(false)
-//     console.log(isOpenModal)
-//   }
-
-//   const handleKeyDown = (e) => {
-//     if (e.key === 'Enter' && e.target === e.currentTarget) {
-//       openModal()
-//     }
-//   }
-
-//   const handleBackdropClick = (e) => {
-//     if (e.target === e.currentTarget) {
-//       SetIsOpenModal(false)
-//     }
-//   }
-
-//   return { isOpenModal, openModal, closeModal, handleKeyDown, handleBackdropClick }
-// }
-
 export default useModalState

@@ -7,7 +7,6 @@
   font-weight: var(--font-weight-bold);
   color: inherit;
   transition: all var(--transition-duration) ease;
-  /* transition: all 0.5s ease; */
 }
 
 .button:disabled {
@@ -21,8 +20,7 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  min-width: 40px;
-  /* transition: all var(--transition-duration) ease; */
+  min-width: 20px;
 }
 
 .primary::after {
@@ -49,8 +47,7 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  min-width: 40px;
-  /* transition: all var(--transition-duration) ease; */
+  min-width: 20px;
 }
 
 .primary.active::after {
@@ -63,4 +60,11 @@
   left: 0; 
   right: 0; 
   opacity: 0.5;
+}
+
+@media (max-width: 479px) {
+  .primary {
+    padding: 5px;
+    padding-bottom: 0;
+  }
 }

@@ -1,4 +1,5 @@
 :root {
+  --font-size-xxs: 10px;
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-base: 16px;
@@ -45,7 +46,18 @@
 
   --transform-increase-size: scale(1.1);
   --transform-decrease-size: scale(0.9);
+}
 
-  /* --container-width: min(calc(100vw - var(--padding-inline)), var(--max-width));
-  --container-margin: auto; */
+@media(max-width: 479px) {
+  :root {
+    --font-size-header-menu: var(--font-size-xs);
+    --font-size-button: var(--font-size-xs);
+    --header-height: 60px;
+  }
+}
+
+@media(max-width: 359px) {
+  :root {
+    --font-size-button: var(--font-size-xxs);
+  }
 }

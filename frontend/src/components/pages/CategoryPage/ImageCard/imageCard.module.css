@@ -9,10 +9,10 @@
 
 .imageCard:hover {
   background-color: var(--color-light);
-  transition-duration: var(--transition-duration);
   border-radius: var(--border-radius-m);
   transform: scale(1.03);
   box-shadow: var(--box-shadow-downward);
+  transition-duration: var(--transition-duration);
 }
 
 .media {
@@ -58,4 +58,10 @@
   justify-content: space-between;
   align-items: center;
   font-size: var(--font-size-xs);
+}
+
+@media(max-width: 767px) {
+  .imageCard {
+    padding: 10px;
+  }
 }

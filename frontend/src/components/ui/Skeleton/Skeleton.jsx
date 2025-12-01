@@ -1,7 +1,7 @@
 import styles from './Skeleton.module.css'
 
 const Skeleton = ({
-  type = 'image', // image | text | button | circle
+  type = 'image', // image | text
   children,
   className = '',
   ...props

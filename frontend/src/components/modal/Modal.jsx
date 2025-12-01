@@ -204,7 +204,7 @@ const Modal = ({ image, SetIsOpenModal }) => {
 //           width="392"
 //           height="257"
 //         />
-//         <img src={img2} alt="" className="image image-outline" />
+//         <img loading="lazy" src={img2} alt="" className="image image-outline" />
 //         <div className="image-compare-slider" ref={sliderRef}>
 //           <div
 //             className="image-compare-slider-handle"

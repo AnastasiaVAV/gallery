@@ -18,8 +18,6 @@ const Header = () => {
               src={logo}
               alt=""
               className={styles.logo}
-              width="50"
-              height="50"
             />
           </NavLink>
 

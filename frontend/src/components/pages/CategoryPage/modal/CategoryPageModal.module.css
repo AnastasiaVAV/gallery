@@ -1,5 +1,10 @@
+.wrapper {
+  inset: 0;
+  z-index: 9999;
+}
+
 .modal {
-  width: 90vw;
+  width: 85vw;
   height: 85vh;
 }
 
@@ -7,21 +12,30 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  color: var(--color-light-blue);
-  font-size: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-  line-height: 1;
+  width: 40px;
+  height: 40px;
+  background: transparent;
 }
 
-.closeButton:hover {
+.closeButton::before {
+  content: "×";
+  color: var(--color-light-blue);
+  font-size: 32px;
+  line-height: 1;
+  display: block;
+  transition: all var(--transition-duration) ease;
+}
+
+.closeButton:hover::before {
   color: var(--color-dark-blue);
   transform: var(--transform-increase-size);
 }
 
-.closeButton:active {
+.closeButton:active::before {
   transform: var(--transform-decrease-size);
 }
 
@@ -49,24 +63,26 @@
 }
 
 .zoomButtons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 15px;
   position: absolute;
   top: 10px;
   right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+  background-color: rgb(from var(--color-light) r g b / 0.8);
+  border-radius: var(--border-radius-m);
 }
 
+/* -----------боковая панель----------- */
 .menu {
-  width: 300px;
+  width: min(26vw, 300px);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
-  padding: 40px;
-  padding-top: 70px;
+  row-gap: 15px;
+  padding: 70px 40px 40px;
   background: #f9f9f9;
   z-index: 1;
   max-height: 100%;
@@ -76,7 +92,6 @@
 .menuButtonsContainer {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 90%;
   padding-right: 8px;
 }
 
@@ -86,6 +101,7 @@
   gap: 20px;
 }
 
+/* -----------прокрутка кнопок с variants----------- */
 .menuButtonsContainer::-webkit-scrollbar {
   width: 6px;
 }
@@ -104,6 +120,8 @@
   background: #a8a8a8;
 }
 
+/* -----------кнопки с вариантами + спиннер + кнопка лайка----------- */
+
 .menuButton {
   min-height: 20px;
   display: flex;
@@ -113,6 +131,7 @@
   flex-direction: column;
   align-items: center;
   row-gap: 5px;
+  white-space: wrap;
 }
 
 menuButton:hover {
@@ -165,4 +184,161 @@ menuButton:active {
 
 .likeButton {
   align-self: end;
+}
+
+/* -----------кнопки навигации----------- */
+
+.sideNavButton {
+  position: fixed;
+  top: 49%;
+  width: 40px;
+  aspect-ratio: 1;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-duration) ease;
+}
+
+.left {
+  left: 1.5vw;
+}
+
+.right {
+  right: 1.5vw;
+  transform: scale(-1, 1);
+}
+
+.sideNavButton:hover svg {
+  transform: var(--transform-increase-size);
+}
+
+.sideNavButton:active svg {
+  transform: var(--transform-decrease-size);
+}
+
+/* -----------адаптивный макет----------- */
+
+@media (max-width: 1024px) {
+  .menu {
+    padding-inline: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .menu {
+    padding: 70px 20px 20px;
+  }
+}
+
+@media (max-width: 623px) {
+  .modal {
+    width: 95vw;
+    height: 85vh;
+  }
+
+  .modalContent {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .closeButton {
+    background-color: rgb(from var(--color-light) r g b / 0.8);
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+  }
+
+  .media {
+    width: 100%;
+    height: auto;
+  }
+
+  .zoomButtons {
+    left: 10px;
+    right: auto;
+    top: 10px;
+    row-gap: 10px;
+  }
+
+  .menu {
+    width: 100%;
+    padding: 12px 20px 15px 20px;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .menuButtonsContainer {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray) var(--color-light-gray);
+    display: flex;
+    justify-content: center;
+  }
+
+  .menuButtonsContainer::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .menuButtonsContainer::-webkit-scrollbar-track {
+    background: var(--color-light-gray);
+    border-radius: 3px;
+  }
+
+  .menuButtonsContainer::-webkit-scrollbar-thumb {
+    background: var(--color-gray);
+    border-radius: 3px;
+  }
+
+  .menuButtons {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 35px;
+  }
+
+  .menuButton {
+    flex: 0 0 auto;
+    width: 100px;
+    font-size: var(--font-size-xs);
+    padding: 0;
+    padding-bottom: 8px;
+    justify-content: start;
+  }
+
+  .menuButtonImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--border-radius-xs);
+  }
+
+  .likeButton {
+    font-size: var(--font-size-sm);
+  }
+  
+  .sideNavButton {
+    top: 94%;
+    width: 35px;
+  }
+
+  .left {
+    left: 30vw;
+  }
+
+  .right {
+    right: 30vw;
+  }
+
+  .sideNavButton svg {
+    width: 35px;
+    height: 35px;
+  }
 }

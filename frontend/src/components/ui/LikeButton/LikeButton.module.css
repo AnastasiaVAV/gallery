@@ -12,8 +12,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
   background: transparent;
   padding: 0;
 }
@@ -27,6 +25,8 @@
   fill: var(--color-light-blue);
   width: 60%;
   height: auto;
+  width: 25px;
+  aspect-ratio: 1;
 }
 
 .icon:hover {
@@ -40,4 +40,13 @@
 
 .active .icon {
   fill: var(--color-yellow);
+}
+
+@media(max-width: 767px) {
+  .likeButtonContainer {
+    gap: 5px;
+  }
+  .icon {
+    width: 20px;
+  }
 }

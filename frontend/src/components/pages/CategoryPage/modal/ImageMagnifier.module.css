@@ -20,6 +20,6 @@
   border-radius: var(--border-radius-m);
   box-shadow: var(--box-shadow);
   pointer-events: none;
-  z-index: 1000;
+  z-index: 900;
   background-repeat: no-repeat;
 }

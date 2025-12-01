@@ -10,7 +10,7 @@ const SliderElement = ({ el, index }) => {
   const gridArea = index + 1
   return el.type === 'image'
     ? (
-        <img key={index} src={el.src} className={styles.sliderBlockImage} grid-area={gridArea} loading="lazy" />
+        <img loading="lazy" key={index} src={el.src} className={styles.sliderBlockImage} grid-area={gridArea} />
       )
     : (
         <div

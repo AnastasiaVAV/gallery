@@ -1,12 +1,13 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
 import { useGetArtsByCategoryQuery } from '@api/supabaseApi.js'
 
-import SortingFilters from './components/SortingFilters.jsx'
-import ImageCard from './components/ImageCard.jsx'
+import SortingFilters from './SortingFilters/SortingFilters.jsx'
+import ImageCard from './ImageCard/ImageCard.jsx'
 import { CategoryPageSkeleton } from '@pages'
 
 import './CategoryPage.css'
+import { useImage } from '@hooks'
 
 const CategoryPage = ({ categoryId }) => {
   const { data = [], isLoading, error } = useGetArtsByCategoryQuery(categoryId)
@@ -15,6 +16,8 @@ const CategoryPage = ({ categoryId }) => {
     likes: 'increase', // decrease
     dates: 'increase', // decrease
   })
+
+  const { setCurrentImages } = useImage()
 
   const sortedData = useMemo(() => {
     if (data.length === 0) return []
@@ -35,6 +38,10 @@ const CategoryPage = ({ categoryId }) => {
     }
   }, [data, sorting])
 
+  useEffect(() => {
+    if (sortedData.length > 0) setCurrentImages(sortedData)
+  }, [sortedData, setCurrentImages])
+
   if (isLoading) return <CategoryPageSkeleton />
   if (error)
     return (
@@ -50,8 +57,8 @@ const CategoryPage = ({ categoryId }) => {
         <SortingFilters sorting={sorting} setSorting={setSorting} />
       </div>
       <div className="container categoryContainer">
-        {sortedData.map(image => (
-          <ImageCard key={image.id} image={image} />
+        {sortedData.map((image, index) => (
+          <ImageCard key={image.id} image={image} imgIndex={index} />
         ))}
       </div>
     </section>

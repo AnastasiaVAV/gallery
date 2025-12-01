@@ -1,77 +1,89 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './ImageMagnifier.module.css'
 
 const ImageMagnifier = ({
   src,
   alt,
   zoomLevel = 2.5,
-  isLoading,
-  magnifierSize = 200,
-  onLoad,
-  onError,
+  magnifierSize = 300,
+  setIsLoading,
 }) => {
-  const [[x, y], setPosition] = useState([0, 0])
-  const [[imgWidth, imgHeight], setSize] = useState([0, 0])
-  const [[imgTop, imgLeft], setPositionImg] = useState([0, 0])
   const [showMagnifier, setShowMagnifier] = useState(false)
+  const [coords, setCoords] = useState({ x: 0, y: 0 })
 
   const imgRef = useRef(null)
   const rafRef = useRef(null)
+  const rectRef = useRef({ top: 0, left: 0, width: 0, height: 0 })
 
-  const handleMouseEnter = () => {
-    const elem = imgRef.current
-    if (!elem) return
-    const { width, height } = elem.getBoundingClientRect()
-    setSize([width, height])
-    setShowMagnifier(true)
-  }
+  useEffect(() => {
+    const img = imgRef.current
+    if (!img) return
 
-  const handleMouseMove = (e) => {
-    // if (isLoading) return
-    if (!imgRef.current) return
+    const controller = new AbortController()
+    const { signal } = controller
 
-    cancelAnimationFrame(rafRef.current)
-    rafRef.current = requestAnimationFrame(() => {
-      const { top, left } = imgRef.current.getBoundingClientRect()
-      setPositionImg([top, left])
-      const x = e.clientX - left
-      const y = e.clientY - top
-      setPosition([x, y])
-    })
-  }
+    const handleEnter = () => {
+      const rect = img.getBoundingClientRect()
+      rectRef.current = rect
+      setShowMagnifier(true)
+    }
 
-  const handleMouseLeave = () => setShowMagnifier(false)
-  // handleMouseMove на DOM элементе с option (3 параметр)
+    const handleLeave = () => {
+      setShowMagnifier(false)
+    }
+
+    const handleMove = (clientX, clientY) => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(() => {
+        setCoords({ x: clientX, y: clientY })
+      })
+    }
+
+    const handlePointerMove = (e) => {
+      handleMove(e.clientX, e.clientY)
+    }
+
+    img.addEventListener('pointerenter', handleEnter, { passive: true, signal })
+    img.addEventListener('pointerleave', handleLeave, { passive: true, signal })
+    img.addEventListener('pointermove', handlePointerMove, { passive: true, signal })
+
+    // отключает стандартные жесты браузера на тач-экранах
+    img.style.touchAction = 'none'
+
+    return () => {
+      controller.abort()
+      img.style.touchAction = ''
+    }
+  }, [])
+
+  const { x, y } = coords
+  const { top, left, width, height } = rectRef.current
+
+  const magnifierStyle = showMagnifier
+    ? {
+        left: `${x - magnifierSize / 2}px`,
+        top: `${y - magnifierSize / 2}px`,
+        width: `${magnifierSize}px`,
+        height: `${magnifierSize}px`,
+        backgroundImage: `url('${src}')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: `${width * zoomLevel}px ${height * zoomLevel}px`,
+        backgroundPosition: `${((x - left) / width) * 100}% ${((y - top) / height) * 100}%`,
+      }
+    : {}
+
   return (
     <div className={styles.magnifierContainer}>
       <img
         ref={imgRef}
         src={src}
         alt={alt}
-        onMouseEnter={handleMouseEnter}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onLoad={onLoad}
-        onError={onError}
+        onLoad={() => setIsLoading(false)}
+        onError={() => setIsLoading(false)}
         className={styles.image}
       />
 
-      {showMagnifier && (
-        <div
-          className={styles.magnifier}
-          style={{
-            left: `${x + imgLeft - magnifierSize / 2}px`,
-            top: `${y + imgTop - magnifierSize / 2}px`,
-            width: `${magnifierSize}px`,
-            height: `${magnifierSize}px`,
-
-            backgroundImage: `url('${src}')`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: `${imgWidth * zoomLevel}px ${imgHeight * zoomLevel}px`,
-            backgroundPosition: `${(x / imgWidth) * 100}% ${(y / imgHeight) * 100}%`,
-          }}
-        />
-      )}
+      {showMagnifier && <div className={styles.magnifier} style={magnifierStyle} />}
     </div>
   )
 }

@@ -1,20 +1,23 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useEffect, memo } from 'react'
 
 import { formattingData } from '@utils'
 import { LikeButton } from '@ui'
 import styles from './imageCard.module.css'
-import { useModalState } from '@hooks'
+import { useModalState, useImage } from '@hooks'
 
 const CategoryPageModal = lazy(() => import('../modal/CategoryPageModal.jsx'))
 const preloadModal = () => import('../modal/CategoryPageModal')
 
-const ImageCard = ({ image }) => {
+const ImageCard = memo(({ image, imgIndex }) => {
   const { id, likes, createdAt, variants_with_dynamic_path: variants } = image
   const xs = variants.find(({ type }) => type === 'xs')
 
   const { openModal } = useModalState()
+  const { setImageIndex } = useImage()
 
   const [isHovered, setIsHovered] = useState(false)
+
+  // useEffect(() => console.log('render ImageCard'))
 
   const handleMouseEnter = () => {
     setIsHovered(true)
@@ -28,6 +31,7 @@ const ImageCard = ({ image }) => {
   }
 
   const handleOpenModal = () => {
+    setImageIndex(imgIndex)
     openModal(
       <Suspense>
         <CategoryPageModal image={image} />
@@ -48,7 +52,7 @@ const ImageCard = ({ image }) => {
         aria-label="Открыть изображение"
       >
         <div className={styles.media}>
-          <img src={xs.image_url} className={styles.image} loading="lazy" />
+          <img loading="lazy" src={xs.image_url} className={styles.image} />
           {isHovered && (
             <div className={styles.overlay}>
               <span className={styles.overlayText}>Открыть</span>
@@ -62,6 +66,6 @@ const ImageCard = ({ image }) => {
       </article>
     </>
   )
-}
+})
 
 export default ImageCard
