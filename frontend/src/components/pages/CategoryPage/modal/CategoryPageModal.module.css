@@ -6,6 +6,7 @@
 .modal {
   width: 85vw;
   height: 85vh;
+  max-width: 100%;
 }
 
 .closeButton {

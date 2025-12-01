@@ -6,14 +6,14 @@
 }
 
 .titleContainer {
-  max-height: 50%;
+  max-height: 58%;
   margin-block: auto;
   display: block;
   padding-top: 5%;
 }
 
 .title {
-  font-size: clamp(100px, 15vw, 200px);
+  font-size: clamp(100px, 17vw, 200px);
   color: var(--color-dark);
   position: relative;
   z-index: 1;
@@ -23,6 +23,7 @@
 .title::before {
   content: '';
   position: absolute;
+  top: -5%;
   left: -0.3em;
   display: block;
   background-color: var(--color-yellow);
@@ -31,6 +32,19 @@
 }
 
 .title::after {
+  content: '';
+  position: absolute;
+  top: 90%;
+  left: 53.7%;
+  display: block;
+  background-color: var(--color-light-blue);
+  width: 287px;
+  height: 45px;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* .title::after {
   content: attr(data-title);
   position: absolute;
   z-index: -1;
@@ -39,13 +53,13 @@
   left: 0.2em;
   color: transparent;
   -webkit-text-stroke: 2px  var(--color-light);
-}
+} */
 
 .slider {
   display: flex;
   column-gap: 20px;
   width: max-content;
-  height: 50%;
+  height: 42%;
   animation: scrollHorizontal 200s linear infinite;
 }
 
@@ -77,7 +91,7 @@
 
 .sliderBlock.block3 {
   grid-template-areas: 
-    "area1 area2 area3 area4 area7"
+    "area1 area2 area2 area3 area4"
     "area1 area5 area5 area6 area7";
 }
 
@@ -124,23 +138,125 @@
   background-color: var(--color-light);
 }
 
+.sliderBlockImage {
+  opacity: 0.8;
+  transition-duration: var(--transition-duration);
+}
+
+.sliderBlockImage:hover {
+  opacity: 1;
+}
+
 .sliderBlockDiv {
   border-radius: var(--border-radius-m);
   animation-duration: 10s;
   animation-delay: -2s;
+  opacity: 1;
+}
+
+.bgLightBlue { 
+  background: linear-gradient(
+    135deg,
+    var(--color-light-blue) 0%,
+    #d1ecfaa9 25%,
+    #b8e4ff 50%,
+    #d1ecfa83 75%,
+    var(--color-light-blue) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  opacity: 0.5;
+}
+
+.bgLightPurple { 
+  background: linear-gradient(
+    45deg,
+    var(--color-light-purple) 0%,
+    #fdc9fb88 25%,
+    #ffaaf8fb 50%,
+    #f5d5ffb7 75%,
+    var(--color-light-purple) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite;
+  opacity: 0.4;
+}
+
+.bgDarkBlue { 
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-blue) 0%,
+    #8bb1cc 25%,
+    #5e8aa5 50%,
+    #8bb1cc 75%,
+    var(--color-dark-blue) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+  opacity: 0.9;
+}
+
+.bgDarkGray { 
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-gray) 0%,
+    #6d6e6d 25%,
+    #4a4b4a 50%,
+    #858885 75%,
+    var(--color-dark-gray) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 25s ease infinite;
+  opacity: 0.5;
 }
 
 .bgLight { 
+  background: linear-gradient(
+    135deg,
+    var(--color-light) 0%,
+    #bebebe 25%,
+    #e9e9e9 50%,
+    #ebeaea 75%,
+    var(--color-light) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 18s ease infinite;
+  box-shadow: inset 0 0 20px rgba(185, 225, 243, 0.2);
+}
+
+.bgDarkPurple { 
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-purple) 0%,
+    #e1a5e8 25%,
+    #c87bd0 50%,
+    #e1a5e8 75%,
+    var(--color-dark-purple) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 14s ease infinite;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* .bgLight { 
   background: var(--color-light); 
 }
 
 .bgDarkGray { 
-  background: var(--color-dark-gray); 
+  background: var(--color-dark-gray);
+  opacity: 0.5;
 }
 
 .bgLightBlue { 
   background: var(--color-light-blue); 
 }
+
 .bgDarkBlue { 
   background: var(--color-dark-blue); 
 }
@@ -151,7 +267,7 @@
 
 .bgDarkPurple { 
   background: var(--color-dark-purple); 
-}
+} */
 
 .alternate {
   animation-direction: alternate;
@@ -209,5 +325,40 @@
   to {
     height: 100%;
     width: 100%;
+  }
+}
+
+@media (max-width: 1339px) {
+  .titleContainer {
+    margin-inline: 50px;
+  }
+}
+
+@media (max-width: 767px) {
+  .titleContainer {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+  }
+}
+
+@media (max-width: 539px) {
+  .title {
+    font-size: max(80px, 27vw);
+    line-height: 1.05;
+  }
+
+  .title::after {
+    top: 98%;
+    left: 49%;
+    width: 202px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 479px) {
+  .title::after {
+    width: 170px;
+    height: 35px;
   }
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import galleryBlocks from './galleryBlocks'
 import styles from './HomePage.module.css'
 
@@ -23,12 +24,30 @@ const SliderElement = ({ el, index }) => {
 }
 
 const HomePage = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <>
       <section className={styles.gallery}>
         <div className={`container ${styles.titleContainer}`}>
           <h1 className={styles.title} data-title="Gallery">
-            Gallery
+            {windowWidth > 539
+              ? <span>Gallery</span>
+              : (
+                  <>
+                    <span>Gal</span>
+                    <br />
+                    <span>lery</span>
+                  </>
+                )}
           </h1>
         </div>
         <div className={styles.slider}>
