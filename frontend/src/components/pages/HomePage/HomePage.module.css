@@ -55,11 +55,18 @@
   -webkit-text-stroke: 2px  var(--color-light);
 } */
 
+.fadeIn {
+  height: 42%;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInAnim 0.5s ease forwards;
+}
+
 .slider {
+  height: 100%;
   display: flex;
   column-gap: 20px;
   width: max-content;
-  height: 42%;
   animation: scrollHorizontal 200s linear infinite;
 }
 
@@ -152,6 +159,13 @@
   animation-duration: 10s;
   animation-delay: -2s;
   opacity: 1;
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .bgLightBlue { 

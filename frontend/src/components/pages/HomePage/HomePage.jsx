@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import galleryBlocks from './galleryBlocks'
+import { preloadGalleryBlocks } from '@utils'
 import styles from './HomePage.module.css'
 
 const allBlocks = [
@@ -25,6 +26,7 @@ const SliderElement = ({ el, index }) => {
 
 const HomePage = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth)
@@ -32,6 +34,12 @@ const HomePage = () => {
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    preloadGalleryBlocks(galleryBlocks).then(() => {
+      setIsLoaded(true)
+    })
   }, [])
 
   return (
@@ -50,19 +58,26 @@ const HomePage = () => {
                 )}
           </h1>
         </div>
-        <div className={styles.slider}>
-          {allBlocks.map((currentBlock, blockIndex) => {
-            return (
-              <div
-                className={`${styles.sliderBlock} ${styles[`block${currentBlock}`]}`}
-                key={`${currentBlock}-${blockIndex}`}
-              >
-                {galleryBlocks[currentBlock].map((el, index) => (
-                  <SliderElement key={index} el={el} index={index}></SliderElement>
-                ))}
-              </div>
-            )
-          })}
+        <div className={`${isLoaded ? styles.fadeIn : ''}`}>
+          <div className={styles.slider}>
+            {isLoaded
+              ? (
+                  allBlocks.map((currentBlock, blockIndex) => (
+                    <div
+                      className={`${styles.sliderBlock} ${styles[`block${currentBlock}`]}`}
+                      key={`${currentBlock}-${blockIndex}`}
+                    >
+                      {galleryBlocks[currentBlock].map((el, index) => (
+                        <SliderElement key={index} el={el} index={index} />
+                      ))}
+                    </div>
+                  ))
+                )
+              : (
+                  <div />
+                )}
+          </div>
+
         </div>
       </section>
     </>

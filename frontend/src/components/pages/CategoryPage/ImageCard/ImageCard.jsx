@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useEffect, memo } from 'react'
+import { useState, lazy, Suspense, memo } from 'react'
 
 import { formattingData } from '@utils'
 import { LikeButton } from '@ui'
@@ -16,8 +16,6 @@ const ImageCard = memo(({ image, imgIndex }) => {
   const { setImageIndex } = useImage()
 
   const [isHovered, setIsHovered] = useState(false)
-
-  // useEffect(() => console.log('render ImageCard'))
 
   const handleMouseEnter = () => {
     setIsHovered(true)

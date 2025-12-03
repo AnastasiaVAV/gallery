@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useAddLikeMutation, useRemoveLikeMutation } from '@api/supabaseApi'
 import { useLikes } from '@hooks'
@@ -29,6 +29,11 @@ const LikeButton = ({ id, likes }) => {
 
   const [addLike] = useAddLikeMutation()
   const [removeLike] = useRemoveLikeMutation()
+
+  useEffect(() => {
+    setLocalLikes(Number(likes) || 0)
+  }, [likes])
+
 
   const handleUpdateLikes = async (e, id) => {
     e.stopPropagation()

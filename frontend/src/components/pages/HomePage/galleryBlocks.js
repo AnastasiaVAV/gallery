@@ -16,17 +16,6 @@ import img3_1 from '@assets/images/homePage/3_1.jpg'
 import img3_2 from '@assets/images/homePage/3_2.jpg'
 import img3_3 from '@assets/images/homePage/3_3.jpg'
 
-// import img4 from '@assets/images/homePage/4.jpg'
-
-// import img5 from '@assets/images/homePage/5.jpg'
-// import img6 from '@assets/images/homePage/6.jpg'
-// import img7 from '@assets/images/homePage/7.jpg'
-// import img8 from '@assets/images/homePage/8.jpg'
-// import img9 from '@assets/images/homePage/9.jpg'
-
-// import img10 from '@assets/images/homePage/10.jpg'
-// import img11 from '@assets/images/homePage/11.jpg'
-
 import styles from './HomePage.module.css'
 
 const galleryBlocks = {

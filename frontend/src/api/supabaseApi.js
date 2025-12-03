@@ -26,7 +26,13 @@ export const supabaseApi = createApi({
           .eq('categoryId', categoryId)
         return error ? { error } : { data }
       },
-      providesTags: ['Art'],
+      providesTags: result =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Art', id })),
+              { type: 'Art', id: 'LIST' },
+            ]
+          : [{ type: 'Art', id: 'LIST' }],
     }),
 
     addLike: build.mutation({
@@ -38,7 +44,12 @@ export const supabaseApi = createApi({
           .select('*')
         return error ? { error } : { data }
       },
+      invalidatesTags: (result, error, { artworkId }) => [
+        { type: 'Art', id: artworkId },
+        { type: 'Art', id: 'LIST' },
+      ],
     }),
+
     removeLike: build.mutation({
       queryFn: async ({ artworkId, currentLikes }) => {
         const { data, error } = await supabase
@@ -48,6 +59,10 @@ export const supabaseApi = createApi({
           .select('*')
         return error ? { error } : { data }
       },
+      invalidatesTags: (result, error, { artworkId }) => [
+        { type: 'Art', id: artworkId },
+        { type: 'Art', id: 'LIST' },
+      ],
     }),
   }),
 })
